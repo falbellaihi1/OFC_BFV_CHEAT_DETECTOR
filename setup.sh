@@ -1,0 +1,1 @@
+export API_DOMAIN='api.tracker.gg'

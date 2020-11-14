@@ -1,0 +1,14 @@
+click
+ecdsa
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+future
+gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
+psycopg2
+six==1.15.0
+SQLAlchemy
+Werkzeug
