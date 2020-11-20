@@ -10,6 +10,8 @@ I have used battlefield tracker to track players stats, even thought it is not t
 This project is open for the community to contribute. 
 
 
+Will add the set up instructions when the project is mature enough, right now it is still under construction
+
 
 
 
