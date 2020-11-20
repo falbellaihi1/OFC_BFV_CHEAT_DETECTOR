@@ -128,7 +128,7 @@ def get_player_game_reports_id(report_id):
     conn = http.client.HTTPSConnection(API_DOMAIN)
     payload = "{\"query\":\"\",\"variables\":{}}"
     conn.request("GET",
-                 "/api/v1/bfv/gamereports/origin/direct/1329558794147715072",
+                 "/api/v1/bfv/gamereports/origin/direct/",
                  payload, headers)
     res = conn.getresponse()
     data = res.read()
