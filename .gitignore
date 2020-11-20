@@ -1,7 +1,8 @@
  Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files
-__pycache__/
+__pycache__/*.pyc
+*.pyc
 *.py[cod]
 *$py.class
 
@@ -92,7 +93,7 @@ ENV/
 ### VirtualEnv template
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-.Python
+
 [Bb]in
 [Ii]nclude
 [Ll]ib
@@ -130,6 +131,7 @@ pip-selfcheck.json
 
 .idea/
 
+
 ## File-based project format:
 *.iws
 
@@ -144,8 +146,3 @@ pip-selfcheck.json
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties

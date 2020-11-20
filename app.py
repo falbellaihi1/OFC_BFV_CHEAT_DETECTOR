@@ -53,16 +53,32 @@ def weapon_data_helper(player_origin_name):
     return weapons_stats
 
 
+def game_reports_helper(player_origin_name): #TODO
+    reports_dic = []
+    headers = get_headers()
+    conn = http.client.HTTPSConnection(API_DOMAIN)
+    payload = "{\"query\":\"\",\"variables\":{}}"
+    conn.request("GET", "/api/v1/bfv/gamereports/origin/latest/{}".format(
+        player_origin_name),
+                 payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+
+    # data_uni = (data.decode("utf-8"))
+    json_loads = json.loads(data)
+    report_id = json_loads['data']['reports']
+    for id in range(len(report_id)):
+        reports_dic.append(report_id[id]['gameReportId'])
+    return reports_dic
+
 @app.route('/player/stats/<player_origin_name>')
 def get_player_data(player_origin_name):
-    print(player_origin_name)
     headers = get_headers()
     conn = http.client.HTTPSConnection(API_DOMAIN)
     payload = "{\"query\":\"\",\"variables\":{}}"
     conn.request("GET", "/api/v2/bfv/standard/profile/origin/{}".format(
         player_origin_name),
                  payload, headers)
-    print(headers)
     res = conn.getresponse()
     data = res.read()
     # data_uni = (data.decode("utf-8"))
@@ -88,7 +104,44 @@ def get_player_weapon_data(player_origin_name):
     })
 
 
-@app.route('/player/weapons/RPM/<player_origin_name>', methods=['GET'])
+
+@app.route('/player/reports/<player_origin_name>', methods=['GET'])
+def get_player_game_reports(player_origin_name):
+    headers = get_headers()
+    conn = http.client.HTTPSConnection(API_DOMAIN)
+    payload = "{\"query\":\"\",\"variables\":{}}"
+    conn.request("GET", "/api/v1/bfv/gamereports/origin/latest/{}".format(
+        player_origin_name),
+                 payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    json_loads = json.loads(data)
+    test = game_reports_helper(player_origin_name)
+    return jsonify({
+        "success": True,
+        "data": json_loads
+    })
+
+@app.route('/player/reports/id/<report_id>', methods=['GET'])
+def get_player_game_reports_id(report_id):
+    headers = get_headers()
+    conn = http.client.HTTPSConnection(API_DOMAIN)
+    payload = "{\"query\":\"\",\"variables\":{}}"
+    conn.request("GET",
+                 "/api/v1/bfv/gamereports/origin/direct/1329558794147715072",
+                 payload, headers)
+    res = conn.getresponse()
+    data = res.read()
+    json_loads = json.loads(data)
+
+
+    return jsonify({
+        "success": True,
+        "data": json_loads
+    })
+
+
+@app.route('/player/weapons/RPM/<player_origin_name>', methods=['GET']) #TODO, STILL STUDYING
 def cheat_RPM(player_origin_name):
     weapons = weapon_data_helper(player_origin_name)
     total_kills_in_all_weapons = 0
@@ -96,7 +149,6 @@ def cheat_RPM(player_origin_name):
     RPM = 0;
     for i in range(len(weapons)):
         for key in weapons[i]['weapons_stats']:
-            #print(key)
             print("shotsAccuracy",
                   weapons[i]['weapons_stats'][key]['shotsAccuracy'])
             print(key, "HEAD SHOTS :",
